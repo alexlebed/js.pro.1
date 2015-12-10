@@ -1,21 +1,22 @@
 /**
  * Created by romab on 10.12.2015.
  */
-//module.exports ---> {};
-//module.exports <= exports <= object;
+var User = function(){
+    this.create = function(req, res, next){
+        res.status(200).send(req.body);
+    } ;
 
-//exports = {a: 10};
+    this.updateUser = function(req, res, next){
+        var login = req.params.login;
+        var weight = req.params.weight;
 
-//module.exports  exports <= object;
+        res.status(200).send({login: login, weight: weight});
+    };
 
-exports.a = 10;
-exports.f = function(){};
+    this.getAll = function(req, res, next){
+        console.log(req.myVar);
+        res.status(200).send(req.ip);
+    }
+};
 
-
-/*
- module.exports = (function(){
- return {
- a: 10,
- f: function(){}
- }
- })();*/
+module.exports = User;

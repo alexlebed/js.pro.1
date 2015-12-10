@@ -3,22 +3,13 @@
  */
 module.exports = (function(){
     var express = require('express');
-
+    var UserHandelr = require('../handlers/user');
     var userRouter = express.Router();
+    var userHandler = new UserHandelr();
 
-    userRouter.get('/', function(req, res, next){
-        console.log(req.myVar);
-        res.status(200).send(req.ip);
-    });
-    userRouter.post('/:login/:weight', function(req, res, next){
-        var login = req.params.login;
-        var weight = req.params.weight;
-
-        res.status(200).send({login: login, weight: weight});
-    });
-    userRouter.post('/', function(req, res, next){
-        res.status(200).send(req.body);
-    });
+    userRouter.get('/', userHandler.getAll);
+    userRouter.post('/:login/:weight', userHandler.updateUser);
+    userRouter.post('/', userHandler.create);
 
 
     return userRouter;
