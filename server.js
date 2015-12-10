@@ -1,33 +1,14 @@
 /**
  * Created by romab on 10.12.2015.
  */
-var http = require('http');
+var express = require('express');
+var app = express();
+var port = process.env.PORT || 3030;
 
-var server;
-
-server = http.createServer(function(req, res){
-    var url = req.url.split('/');
-    var masterUrl = url[1];
-
-    var enumForUrl = {
-        hello: hello
-    };
-
-    if(enumForUrl[masterUrl]){
-        enumForUrl[masterUrl](res);
-    } else {
-        res.writeHead(404, {"Content-Type": "text/plain"});
-        res.end('Page not found');
-    }
-
-
-    function hello(res){
-        res.writeHead(200, {"Content-Type": "text/plain"});
-        res.end('Hello world');
-    }
-
+app.get('/hello', function(req, res, next){
+    res.status(200).send('Hello world');
 });
 
-server.listen(3030, function(){
-    console.log('Server is listening on 3030 port');
+app.listen(port, function(){
+    console.log('Server start success = ' + port);
 });
