@@ -1,0 +1,22 @@
+{
+  "name": "untitled",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "romashka50 <roma.buchuk@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/romashka50/js.pro.1",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.2.3",
+    "jquery": "~2.2.0"
+  }
+}

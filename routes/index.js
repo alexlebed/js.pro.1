@@ -7,7 +7,7 @@ module.exports = function(app){
 
     app.use(bodyParser.json());
     app.get('/', function(req, res, next){
-        res.status(200).send(req.ip);
+        res.status(200).sendfile('index.html');
     });
 
     app.use('/user', userRouter);
