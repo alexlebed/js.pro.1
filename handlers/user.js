@@ -6,10 +6,9 @@ var User = function(){
     var Schema = mongoose.Schema;
     var useeSchema = new Schema({
         _id        : Number,
-        name       : {
-            first: String,
-            last : String
-        },
+        age: Number,
+        firstName: String,
+        lastName: String,
         dateOfBirth: {type: Date, default: Date.now},
         friends    : [{type: Number, ref: 'user'}]
     });
@@ -18,7 +17,7 @@ var User = function(){
     this.create = function(req, res, next){
         var body = req.body;
         var user = new User(body);
-        var _id = (global.userId || (global.userId = 1));
+        var _id = global.userId ? ++global.userId : (global.userId = 1);
         user._id = _id;
 
         user.save(function (err, _user) {
@@ -31,10 +30,16 @@ var User = function(){
     } ;
 
     this.updateUser = function(req, res, next){
-        var login = req.params.login;
-        var weight = req.params.weight;
+        var id = req.params.id;
+        var body = req.body;
 
-        res.status(200).send({login: login, weight: weight});
+        User.findByIdAndUpdate(id, {$set: body}, {new: true}, function(err, user){
+            if(err){
+                return next(err);
+            }
+
+            res.status(200).send(user);
+        });
     };
 
     this.getAll = function(req, res, next){
