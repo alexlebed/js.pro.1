@@ -2,8 +2,8 @@ var UserModel = Backbone.Model.extend({
     idAttribute: '_id', //idAttribute: 'id';
 
     initialize: function () {
-        this.on('invalid', function (model, err) {
-            console.log(err);
+        /*this.on('invalid', function (model, err) {
+            console.log('sdf', err);
         });
 
         this.on('change', function (model, options) {
@@ -15,15 +15,17 @@ var UserModel = Backbone.Model.extend({
             console.log('changedAttr', 'age');
             console.log('changedValue', value);
             console.log('prevValue', model.previousAttributes().age);
-        });
+        });*/
     },
 
     urlRoot: function () {
         return '/user/'
     },
 
-    validate: function (attr) {
-        var err = [];
+    validate: function (attr, options) {
+       /* var err = [];
+
+        console.log(options);
 
         if (!attr.age) {
             err.push('age is required');
@@ -34,43 +36,25 @@ var UserModel = Backbone.Model.extend({
 
         if (err.length) {
             return err;
+        }*/
+        console.log('Validate');
+    },
+    parse: function(mod){
+        if(mod.dateOfBirth){
+            mod.dateOfBirth = new Date(mod.dateOfBirth);
+            mod.dateOfBirth = moment(mod.dateOfBirth);
+            mod.age = mod.dateOfBirth.fromNow(true);
+            mod.dateOfBirth = mod.dateOfBirth.format('DD MMM, YYYY');
         }
+
+        return mod;
     }
 });
 
 var user = new UserModel({
-    _id        : 1,
-    age        : 27,
+    age        : 17,
     firstName  : 'Ivan',
     lastName   : 'Pupkin',
     dateOfBirth: new Date('1987-11-23')
 });
 
-var user2 = new UserModel({
-    age        : 15,
-    firstName  : 'Vasya',
-    lastName   : 'Ivanov',
-    dateOfBirth: new Date('1987-10-23')
-});
-
-/*user.set({
-    firstName: 'Ivan2'
-});
-
-user.save(user.changedAttributes(), {
-    patch  : true,
-    success: function (model, xhrResponse, opt) {
-
-    },
-    error  : function (model, xhrResponse, opt) {
-
-    }
-});*/
-
-var UserCollection = Backbone.Collection.extend({
-    model: UserModel,
-    url: '/user/'
-});
-
-
-var users = new UserCollection([user, user2]);
