@@ -51,10 +51,27 @@ var UserModel = Backbone.Model.extend({
     }
 });
 
-var user = new UserModel({
-    age        : 17,
+var userObject = {
+    _id: 1,
     firstName  : 'Ivan',
-    lastName   : 'Pupkin',
-    dateOfBirth: new Date('1987-11-23')
+    lastName   : 'Pupkin'
+};
+var user;
+var users = [];
+
+for (var i = 0; i< 10; i++){
+    userObject._id += 1;
+    userObject.dateOfBirth = new Date();
+    user = new UserModel(userObject);
+    users.push(user);
+}
+
+var Users = Backbone.Collection.extend({
+    model: UserModel,
+    url: '/user'
 });
+
+var _users = new Users(users);
+
+
 
