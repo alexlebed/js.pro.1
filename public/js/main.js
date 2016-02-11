@@ -6,12 +6,18 @@ require.config({
         Backbone: './libs/backbone/backbone',
         Underscore: './libs/underscore/underscore',
         jQuery: './libs/jquery/dist/jquery',
+        text: './libs/text/text',
+        moment: './libs/moment/moment',
         models: './models',
         collections: './collections',
-        views: './views'
+        views: './views',
+        templates: '../templates'
     },
     shim: {
-        Backbone: ['Underscore', 'jQuery']
+        Backbone: ['Underscore', 'jQuery'],
+        Underscore: {
+            exports: '_'
+        }
     }
 });
 

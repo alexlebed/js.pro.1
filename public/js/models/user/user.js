@@ -1,4 +1,7 @@
-define(['Backbone'], function (Backbone) {
+define([
+    'Backbone',
+    'moment'
+], function (Backbone, moment) {
     var UserModel = Backbone.Model.extend({
         idAttribute: '_id', //idAttribute: 'id';
 
@@ -21,6 +24,14 @@ define(['Backbone'], function (Backbone) {
 
         urlRoot: function () {
             return '/user/'
+        },
+
+        parse: function(response){
+            if(response.dateOfBirth){
+                response.dateOfBirth = moment(response.dateOfBirth).format('DD MMM, YYYY');
+            }
+
+            return response;
         }
     });
 

@@ -1,8 +1,9 @@
 define([
     'Backbone',
-    'models/user'
+    'models/user/user'
 ], function(Backbone, UserModel){
-var Users = Backbone.Collection.extend({
+    'use strict';
+    var Users = Backbone.Collection.extend({
         model: UserModel,
         url: '/user'
     });

@@ -17,7 +17,7 @@ var User = function () {
     this.create = function (req, res, next) {
         var body = req.body;
         var user = new User(body);
-        var _id = global.userId ? ++global.userId : (global.userId = 1);
+        var _id = global.userId ? ++global.userId : (global.userId = 7);
         user._id = _id;
 
         user.save(function (err, _user) {
