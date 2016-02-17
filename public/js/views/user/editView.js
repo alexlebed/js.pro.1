@@ -1,14 +1,15 @@
 define([
     'Backbone',
     'Underscore',
-    'models/user/user',
-    'text!templates/user/create.html'
-], function(Backbone, _, UserModel, createTemplate){
-    var CreateView = Backbone.View.extend({
+    'moment',
+    'text!templates/user/edit.html'
+], function(Backbone, _, moment, editTemplate){
+    var EditView = Backbone.View.extend({
         el: '#wrapper',
-        template: _.template(createTemplate),
+        template: _.template(editTemplate),
         events: {
-            'click #saveBtn': 'onSaveBtnClick'
+            'click #saveBtn': 'onSaveBtnClick',
+            'click #cancelBtn': 'onCancelBtnClick'
         },
 
         initialize: function(){
@@ -21,10 +22,12 @@ define([
             var $thisEl = this.$el;
             var firstName = $thisEl.find('#firstName').val(); //this.$('#firstName');
             var lastName = $thisEl.find('#lastName').val();
+            var dateOfBirth = $thisEl.find('#date').val();
 
-            var user = new UserModel({
+            var user = this.model.set({
                 firstName: firstName,
-                lastName: lastName
+                lastName: lastName,
+                dateOfBirth: dateOfBirth
             });
 
             user.save(null, {
@@ -37,15 +40,23 @@ define([
             });
         },
 
+        onCancelBtnClick: function(e){
+           this.redirect();
+        },
+
         redirect: function(){
             Backbone.history.navigate('user', {trigger: true});
         },
 
         render: function(){
-            this.$el.html(this.template());
+            var model = this.model.toJSON();
+
+            model.dateOfBirth = moment(model.dateOfBirth).format('YYYY-MM-DD');
+
+            this.$el.html(this.template(model));
         }
     });
 
-    return CreateView;
+    return EditView;
 });
 

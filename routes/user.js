@@ -12,6 +12,8 @@ module.exports = (function(){
     userRouter.post('/', userHandler.create);
     userRouter.put('/:id', userHandler.updateUser);
 
+    userRouter.delete('/:id', userHandler.removeUser);
+
 
     return userRouter;
 })();

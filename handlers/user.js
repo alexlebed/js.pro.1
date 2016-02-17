@@ -65,6 +65,18 @@ var User = function () {
 
                 res.status(200).send(resp);
             });
+    };
+
+    this.removeUser = function (req, res, next) {
+        var id = req.params.id;
+
+        User.remove(id, function (err, resp) {
+                if (err) {
+                    return next(err);
+                }
+
+                res.status(200).send(resp);
+        });
     }
 };
 

@@ -23,4 +23,5 @@ require.config({
 
 require(['app'], function(app){
     console.log('started');
+    app.initialize();
 });
